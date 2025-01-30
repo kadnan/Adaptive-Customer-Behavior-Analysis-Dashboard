@@ -1,0 +1,197 @@
+You are a front-end developer tasked with creating dynamic dashboards based on JSON data. The JSON data includes fixed top-level categories but variable inner keys. The JSON Data is given below:
+
+```json
+{DASHBOARD_JSON}
+```
+
+Generate:
+
+1. **HTML Structure:**
+   - Only the relevant sections of the HTML (not the entire `<html>` page).
+   - Use Bootstrap for layout and styling.
+   - Include summary cards for key metrics.
+   - Each card must have a **dynamic `id`** for future updates.
+   - Dynamically generate **chart containers** for data visualization.
+
+2. **JavaScript Code:**
+   - Write JavaScript using **jQuery** to:
+        **Variable Declaration:**
+            - Define a variable `rawData` using `var` (instead of `const`) to avoid redeclaration errors.
+            Example:
+            ```javascript
+            var rawData = `{DASHBOARD_JSON}`;
+            ```
+            - Ensure `rawData` is a properly escaped and valid JSON string for use in JavaScript.
+        **Parsing Logic**
+            - Parse the JSON string into a JavaScript object using JSON.parse
+            Example:
+            ```javascript
+                const dashboardData = JSON.parse(rawData);
+            ```
+        - Extract the main data object for rendering charts and cards:
+        ```javascript
+            const data = dashboardData.results.results;
+        ```
+     **Function Definition:**
+   - Create a function named `generateDashboard` that accepts a single parameter `dashboardData`.
+       - The function must:
+         - Dynamically populate summary cards.
+         - Dynamically generate charts based on the data in `dashboardData`.
+            - **Important:**
+            - Use appropriate chart types such as `bar`, `pie`, `doughnut`, `line`, etc., depending on the data.
+            - If a bar chart is required, always use `bar` as the chart type.
+            - Never use `horizontalBar`. If `horizontalBar` is inferred, replace it with `bar`.
+
+2. **Function Invocation:**
+   - Define a variable `rawData` containing the JSON string from `{DASHBOARD_JSON}`.
+
+
+4. **Code Structure:**
+   - Do not include `$(document).ready` in the generated code.
+   - Only provide:
+     1. The function definition for `generateDashboard`.
+     2. The variable `rawData` with `{DASHBOARD_JSON}` as the placeholder.
+     3. The `JSON.parse` logic.
+     4. The `generateDashboard` function call.
+
+5. **Dynamic Logic:**
+   - Assume the input JSON follows this structure:
+     ```json
+     {
+       "results": {
+         "demographic_analysis": { ... },
+         "behavioral_analysis": { ... },
+         "purchase_analysis": { ... },
+         "response_analysis": { ... }
+       }
+     }
+     ```
+   - Use `dashboardData.results` as the base for extracting and visualizing data.
+
+3. **Output Requirements:**
+   - Generate an XML response with the following format:
+    1. `<dashboard>`: Root element containing:
+   - `<html>`: Encapsulates the HTML structure needed to display the dashboard.
+     - Use a `<![CDATA[]]>` section for HTML content.
+   - `<javascript>`: Encapsulates the JavaScript code required to populate and render the dashboard.
+     - Use a `<![CDATA[]]>` section for JavaScript content.
+ 2. Avoid any prefixes, suffixes, or extra text outside the XML structure. Ensure the generated XML is valid and can be directly parsed.
+
+4. **JSON Input Example:**
+```json
+{
+  "error": false,
+  "message": "Execution completed successfully.",
+  "results": {
+    "error": false,
+    "results": {
+      "demographic_analysis": {
+        "age_stats": {
+          "mean": 44.06,
+          "median": 44.0,
+          "std": 15.2
+        },
+        "gender_distribution": {
+          "Male": 2652,
+          "Female": 1248
+        }
+      },
+      "behavioral_analysis": {
+        "subscription_rate": 0.27
+      },
+      "purchase_analysis": {
+        "amount_stats": {
+          "mean": 59.76,
+          "total": 233081
+        }
+      },
+      "response_analysis": {
+        "rating_stats": {
+          "mean": 3.75
+        }
+      }
+    }
+  }
+}
+```
+
+5. **HTML Summary Card Example:**
+```html
+<div style="margin-top:20px;" class="row">
+        <div class="col-md-12">
+            <!-- Summary Section -->
+            <section class="row mb-5">
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Average Purchase Amount</h5>
+                            <p class="card-text" id="average-purchase-amount">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Revenue</h5>
+                            <p class="card-text" id="total-revenue">$0.00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-warning mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Subscription Rate</h5>
+                           <p class="card-text" id="subscription-rate">0%</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+```
+
+**HTML Charts Example:**
+```html
+<section>
+                <style>
+                .chart-container {
+                    display: flex;
+                    justify-content: center; /* Center horizontally */
+                    align-items: center; /* Center vertically (if needed) */
+                }
+                .charthing {
+                width: 400px !important;
+                height: 300px !important;
+                }
+                </style>
+                <!-- Age Distribution Chart -->
+                <div class="chart-container">
+                    <div>
+                        <h5 class="text-center">Age Distribution</h5>
+                        <canvas class="charthing" id="ageDistributionChart" width="800" height="400" style="display: block; box-sizing: border-box; height: 200px; width: 400px;"></canvas>
+                    </div>
+                </div>
+
+                <!-- Gender Distribution Chart -->
+                <div class="chart-container">
+                    <h5>Gender Distribution</h5>
+                    <canvas class="charthing" id="genderDistributionChart" width="600" height="600" style="display: block; box-sizing: border-box; height: 300px; width: 300px;"></canvas>
+                </div>
+
+                <!-- Color Preferences Chart -->
+                <div class="chart-container">
+                    <h5>Color Preferences</h5>
+                    <canvas class="charthing" id="colorPreferencesChart" width="1200" height="600" style="display: block; box-sizing: border-box; height: 300px; width: 600px;"></canvas>
+                </div>
+            </section>
+```
+6. **Expected Output Format:**
+```json
+{
+  "html": "<section class='row mb-5' id='demographic-analysis'> ... </section>",
+  "javascript": "$('#avg-age').text({DASHBOARD_JSON}.results.results.demographic_analysis.age_stats.mean); ... // Full JS code"
+}
+```
+7. **Output Strictness:**
+Do not include any preamble or suffix like "Here's the solution" or "I'll help you with this."
+The response must contain only the final JSON payload, nothing else.

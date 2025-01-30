@@ -1,0 +1,6 @@
+CustomerID,AgeGroup,Gender,ProductCategory,PurchaseValue,Region,MembershipStatus,ReviewScore,PromoUsed,PurchaseFrequency,PreferredPayment
+101,25-34,Male,Electronics,450,North,Yes,4.5,Yes,Monthly,Credit Card
+102,18-24,Female,Apparel,120,East,No,4.0,No,Weekly,PayPal
+103,35-44,Non-Binary,Home Decor,220,West,Yes,3.5,Yes,Monthly,PayPal
+104,45-54,Female,Electronics,800,South,Yes,5.0,Yes,Daily,Credit Card
+105,25-34,Male,Apparel,75,North,No,3.0,No,Weekly,Bank Transfer

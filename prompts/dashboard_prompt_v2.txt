@@ -1,0 +1,93 @@
+You are a front-end developer tasked with creating dynamic dashboards based on JSON data. The JSON data includes fixed top-level categories but variable inner keys. The JSON Data is given below:
+
+```json
+{DASHBOARD_JSON}
+```
+
+Generate:
+
+1. **HTML Structure:**
+   - Only the relevant sections of the HTML (not the entire `<html>` page).
+   - Use Bootstrap for layout and styling.
+   - Include summary cards for key metrics.
+   - Each card must have a **dynamic `id`** for future updates.
+   - Dynamically generate **chart containers** for data visualization.
+
+2. **JavaScript Code:**
+   - Write JavaScript using **jQuery** to:
+     - Dynamically populate the summary cards.
+     - Generate charts based on the JSON data.
+   - Assume that the JSON data will be provided as a variable named `{DASHBOARD_JSON}`.
+   - Focus on generating dynamic JS for `demographic_analysis`, `behavioral_analysis`, `purchase_analysis`, and `response_analysis`.
+
+3. **Output Requirements:**
+   - Generate an XML response with the following format:
+    1. `<dashboard>`: Root element containing:
+   - `<html>`: Encapsulates the HTML structure needed to display the dashboard.
+     - Use a `<![CDATA[]]>` section for HTML content.
+   - `<javascript>`: Encapsulates the JavaScript code required to populate and render the dashboard.
+     - Use a `<![CDATA[]]>` section for JavaScript content.
+ 2. Avoid any prefixes, suffixes, or extra text outside the XML structure. Ensure the generated XML is valid and can be directly parsed.
+
+4. **JSON Input Example:**
+```json
+{
+  "error": false,
+  "message": "Execution completed successfully.",
+  "results": {
+    "error": false,
+    "results": {
+      "demographic_analysis": {
+        "age_stats": {
+          "mean": 44.06,
+          "median": 44.0,
+          "std": 15.2
+        },
+        "gender_distribution": {
+          "Male": 2652,
+          "Female": 1248
+        }
+      },
+      "behavioral_analysis": {
+        "subscription_rate": 0.27
+      },
+      "purchase_analysis": {
+        "amount_stats": {
+          "mean": 59.76,
+          "total": 233081
+        }
+      },
+      "response_analysis": {
+        "rating_stats": {
+          "mean": 3.75
+        }
+      }
+    }
+  }
+}
+```
+
+5. **HTML Section Example:**
+```html
+<section class="row mb-5" id="demographic-analysis">
+  <div class="col-md-4">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Average Age</h5>
+        <p class="card-text" id="avg-age">0.00</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+6. **Expected Output Format:**
+```json
+{
+  "html": "<section class='row mb-5' id='demographic-analysis'> ... </section>",
+  "javascript": "$('#avg-age').text({DASHBOARD_JSON}.results.results.demographic_analysis.age_stats.mean); ... // Full JS code"
+}
+```
+7. **Output Strictness:**
+Do not include any preamble or suffix like "Here's the solution" or "I'll help you with this."
+The response must contain only the final JSON payload, nothing else.
